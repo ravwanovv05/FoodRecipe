@@ -1,6 +1,8 @@
 from django.db import models
-from account.models.users import User
+from django.contrib.auth import get_user_model
 from api.models.dish import Dish
+
+User = get_user_model()
 
 
 class Comment(models.Model):

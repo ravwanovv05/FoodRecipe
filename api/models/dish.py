@@ -1,7 +1,8 @@
 from django.db import models
-
-from account.models.users import User
 from api.models.category import Category
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class Dish(models.Model):

@@ -1,6 +1,8 @@
 from django.db import models
-from account.models.users import User
 from api.models.dish import Dish
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class SavedDish(models.Model):
