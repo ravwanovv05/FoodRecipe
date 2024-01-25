@@ -13,6 +13,8 @@ class User(AbstractUser):
     following = models.PositiveBigIntegerField('Following', default=0)
     followers = models.PositiveBigIntegerField('Followers', default=0)
     joined_at = models.DateTimeField('Joined At', auto_now_add=True)
+    groups = models.ManyToManyField('auth.Group', related_name='custom_user_groups', blank=True)
+    user_permissions = models.ManyToManyField('auth.Permission', related_name='custom_user_permissions', blank=True)
 
     class Meta:
         verbose_name = 'User'
