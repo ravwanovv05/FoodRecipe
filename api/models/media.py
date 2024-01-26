@@ -5,7 +5,7 @@ from api.models.dish import Dish
 
 class Media(models.Model):
     image = models.ImageField('Image', upload_to='pic')
-    file = models.FileField('File', upload_to='video')
+    video = models.FileField('Video', upload_to='video')
 
     dish_id = models.ForeignKey(Dish, on_delete=models.CASCADE)
 
