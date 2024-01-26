@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'account',
 
     # packages
-
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_yasg',
@@ -35,6 +34,8 @@ INSTALLED_APPS = [
     'storages',
 
 ]
+
+AUTH_USER_MODEL = 'account.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
