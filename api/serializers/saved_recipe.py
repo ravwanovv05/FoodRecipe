@@ -5,4 +5,4 @@ from api.models.dish import Dish
 class SavedRecipeSerializer(ModelSerializer):
     class Meta:
         model = Dish
-        fields = ('id', 'name', 'cocking_time')
+        fields = ('id', 'name', 'rate', 'cocking_time', 'image')
