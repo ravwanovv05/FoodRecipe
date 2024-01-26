@@ -2,7 +2,6 @@ from django.contrib import admin
 from api.models.category import Category
 from api.models.comment import Comment
 from api.models.dish import Dish
-from api.models.media import Media
 from api.models.saved_dish import SavedDish
 
 
@@ -28,8 +27,3 @@ class SavedDishAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', 'dish_id', 'created_at')
-    
-
-@admin.register(Media)
-class MediaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'image', 'video')
