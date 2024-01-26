@@ -10,6 +10,8 @@ class Dish(models.Model):
     ingredient = models.TextField('Ingredient', null=True, blank=True)
     procedure = models.TextField('Procedure', null=True, blank=True)
     cocking_time = models.PositiveIntegerField('Cocking', default=0, null=True, blank=True)
+    image = models.ImageField('Image', upload_to='pic')
+    video = models.FileField('Video', upload_to='video')
     rate = models.PositiveIntegerField('Rate', default=1)
     review = models.TextField('Review', default=1)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
