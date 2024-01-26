@@ -32,4 +32,4 @@ class CommentAdmin(admin.ModelAdmin):
 
 @admin.register(Media)
 class MediaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'image', 'file')
+    list_display = ('id', 'image', 'video')
