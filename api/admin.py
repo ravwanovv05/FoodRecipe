@@ -2,6 +2,7 @@ from django.contrib import admin
 from api.models.category import Category
 from api.models.comment import Comment
 from api.models.dish import Dish
+from api.models.recipe_rate import RecipeRate
 from api.models.saved_dish import SavedDish
 
 
@@ -27,3 +28,8 @@ class SavedDishAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', 'dish_id', 'created_at')
+
+
+@admin.register(RecipeRate)
+class RecipeRate(admin.ModelAdmin):
+    list_display = ('id', 'rate', 'user_id', 'dish_id')
