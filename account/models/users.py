@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from account.models.managers import CustomUserManager
 
 
 class User(AbstractUser):
@@ -10,7 +11,8 @@ class User(AbstractUser):
     location = models.CharField('Location', max_length=255, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['']
+    objects = CustomUserManager()
 
     class Meta:
         verbose_name = 'User'
