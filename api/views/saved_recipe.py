@@ -29,11 +29,9 @@ class SavedRecipeDetailGenericAPIView(GenericAPIView):
     serializer_class = SavedRecipeDetailSerializer
 
     def get(self, request, pk):
-        print(pk)
         saved_recipe_detail = Dish.objects.get(id=pk)
         serializer = self.get_serializer(saved_recipe_detail)
         serialized_data = serializer.data
-        print(serialized_data)
         serialized_data['author_name'] = User.objects.get(id=serialized_data['user_id']).first_name
         serialized_data['user_location'] = User.objects.get(id=serialized_data['user_id']).location
         return Response(serialized_data)

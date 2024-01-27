@@ -9,6 +9,9 @@ class User(AbstractUser):
     bio = models.CharField('Biography', max_length=255, null=True, blank=True)
     location = models.CharField('Location', max_length=255, null=True, blank=True)
 
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'

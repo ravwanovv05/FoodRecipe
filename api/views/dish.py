@@ -5,7 +5,7 @@ from api.serializers.dish_crud import CreateDishSerializer
 
 
 class CreateDishGenericAPIView(GenericAPIView):
-    # permission_classes = IsAuthenticated
+    permission_classes = (IsAuthenticated,)
     serializer_class = CreateDishSerializer
 
     def post(self, request):
