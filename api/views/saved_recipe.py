@@ -32,7 +32,12 @@ class SavedRecipeDetailGenericAPIView(GenericAPIView):
     serializer_class = SavedRecipeDetailSerializer
 
     def get(self, request, pk):
-        saved_recipe_detail = Dish.objects.get(id=pk)
+        try:
+            saved_recipe = SavedDish.objects.get(user_id=request.user.id, dish_id=pk)
+        except SavedDish.DoesNotExist:
+            return Response(status=400)
+
+        saved_recipe_detail = Dish.objects.get(id=saved_recipe.dish_id.id)
         serializer = self.get_serializer(saved_recipe_detail)
         serialized_data = serializer.data
         serialized_data['author_name'] = User.objects.get(id=serialized_data['user_id']).first_name
