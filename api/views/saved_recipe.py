@@ -42,6 +42,10 @@ class SavedRecipeDetailGenericAPIView(GenericAPIView):
         saved_recipe_detail = Dish.objects.get(id=saved_recipe.dish_id.id)
         serializer = self.get_serializer(saved_recipe_detail)
         serialized_data = serializer.data
+        try:
+            serialized_data['author_avatar'] = User.objects.get(id=serialized_data['user_id']).avatar.url
+        except:
+            serialized_data['author_avatar'] = None
         serialized_data['author_name'] = User.objects.get(id=serialized_data['user_id']).first_name
         serialized_data['author_location'] = User.objects.get(id=serialized_data['user_id']).location
         serialized_data['rate'] = recipe_rate(pk)
