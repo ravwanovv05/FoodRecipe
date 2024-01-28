@@ -14,6 +14,7 @@ class RecipeRate(models.Model):
     class Meta:
         verbose_name = 'Recipe Rate'
         verbose_name_plural = 'Recipes Rate'
+        unique_together = ('user_id', 'dish_id')
 
     def __str__(self):
         return f'{self.rate}'

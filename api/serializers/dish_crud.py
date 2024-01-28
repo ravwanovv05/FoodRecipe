@@ -13,3 +13,8 @@ class CreateDishSerializer(ModelSerializer):
         user_id = self.context['request'].user
         return Dish.objects.create(user_id=user_id, **validated_data)
 
+
+class RecipeSerializer(ModelSerializer):
+    class Meta:
+        model = Dish
+        fields = ()
