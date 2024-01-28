@@ -13,7 +13,7 @@ class User(AbstractUser):
     followers = models.PositiveBigIntegerField('Followers', default=0)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['']
+    REQUIRED_FIELDS = ['first_name']
     objects = CustomUserManager()
 
     class Meta:

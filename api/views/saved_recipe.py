@@ -6,7 +6,7 @@ from api.models.dish import Dish
 from api.models.saved_dish import SavedDish
 from api.serializers.saved_recipe import SavedRecipeSerializer, SavedRecipeDetailSerializer
 from django.contrib.auth import get_user_model
-from api.utils.recipe_rate import recipe_rate
+from api.api_utils.recipe_rate import recipe_rate
 
 User = get_user_model()
 
@@ -22,7 +22,9 @@ class SavedRecipeGenericAPIView(GenericAPIView):
             dish = Dish.objects.get(id=sr.dish_id.id)
             serializer = self.get_serializer(dish)
             serialized_data = serializer.data
+            print(serialized_data)
             serialized_data['rate'] = recipe_rate(dish_id=serialized_data['id'])
+            serialized_data['author_name'] = User.objects.get(id=serialized_data['user_id']).first_name
             saved_recipe_list.append(serialized_data)
         return Response(saved_recipe_list)
 
