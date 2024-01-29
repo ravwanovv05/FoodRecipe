@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from account.models.managers import CustomUserManager
+from users.models.managers import CustomUserManager
 
 
 class User(AbstractUser):
