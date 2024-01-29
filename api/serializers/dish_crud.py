@@ -14,7 +14,13 @@ class CreateDishSerializer(ModelSerializer):
         return Dish.objects.create(user_id=user_id, **validated_data)
 
 
-class RecipeSerializer(ModelSerializer):
+class MyRecipeSerializer(ModelSerializer):
     class Meta:
         model = Dish
-        fields = ()
+        fields = ('id', 'name', 'image', 'cocking_time')
+
+
+class MyRecipeDetailSerializer(ModelSerializer):
+    class Meta:
+        model = Dish
+        

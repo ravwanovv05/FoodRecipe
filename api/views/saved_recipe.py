@@ -22,9 +22,8 @@ class SavedRecipeGenericAPIView(GenericAPIView):
             dish = Dish.objects.get(id=sr.dish_id.id)
             serializer = self.get_serializer(dish)
             serialized_data = serializer.data
-            print(serialized_data)
             serialized_data['rate'] = recipe_rate(dish_id=serialized_data['id'])
-            serialized_data['author_name'] = User.objects.get(id=serialized_data['user_id']).first_name
+            serialized_data['author_name'] = User.objects.get(id=request.user.id).first_name
             saved_recipe_list.append(serialized_data)
         return Response(saved_recipe_list)
 
@@ -43,11 +42,11 @@ class SavedRecipeDetailGenericAPIView(GenericAPIView):
         serializer = self.get_serializer(saved_recipe_detail)
         serialized_data = serializer.data
         try:
-            serialized_data['author_avatar'] = User.objects.get(id=serialized_data['user_id']).avatar.url
+            serialized_data['author_avatar'] = User.objects.get(id=request.user.id).avatar.url
         except:
             serialized_data['author_avatar'] = None
-        serialized_data['author_name'] = User.objects.get(id=serialized_data['user_id']).first_name
-        serialized_data['author_location'] = User.objects.get(id=serialized_data['user_id']).location
+        serialized_data['author_name'] = User.objects.get(id=request.user.id).first_name
+        serialized_data['author_location'] = User.objects.get(id=request.user.id).location
         serialized_data['rate'] = recipe_rate(pk)
         return Response(serialized_data)
 
