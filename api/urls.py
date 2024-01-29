@@ -1,6 +1,7 @@
 from django.urls import path
 from api.views.category import CategoryGenericAPIView
-from api.views.dish import CreateDishGenericAPIView
+from api.views.comment_recipe import CommentRecipeGenericAPIView, CommentsRecipeGenericAPIView
+from api.views.dish import CreateDishGenericAPIView, MyRecipeGenericAPIView
 from api.views.rate_to_recipe import RateToRecipeGenericAPIView
 from api.views.saved_recipe import SavedRecipeGenericAPIView, SavedRecipeDetailGenericAPIView, UnSaveRecipeAPIView
 from api.views.search_recipe import SearchRecipeListAPIView
@@ -13,4 +14,7 @@ urlpatterns = [
     path('rateto-recipe', RateToRecipeGenericAPIView.as_view(), name='rateto-recipe'),
     path('category', CategoryGenericAPIView.as_view(), name='category'),
     path('search-recipe', SearchRecipeListAPIView.as_view(), name='search-recipe'),
+    path('my-recipe', MyRecipeGenericAPIView.as_view(), name='my-recipe'),
+    path('comment', CommentRecipeGenericAPIView.as_view(), name='comment'),
+    path('comments/<int:dish_id>', CommentsRecipeGenericAPIView.as_view(), name='comments'),
 ]
