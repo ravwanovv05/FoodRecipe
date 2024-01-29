@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from account.models.user_follow import UserFollow
-from account.models.users import User
+from users.models.user_follow import UserFollow
+from users.models.users import User
 
 
 @admin.register(User)
