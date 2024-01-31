@@ -2,9 +2,9 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
-from users.models.user_follow import UserFollow
-from users.serializers.follow_serializer import FollowSerializer, FollowingFollowersSerializer
-from users.user_utils.increment_decremet import increment, decrement
+from accounts.models.user_follow import UserFollow
+from accounts.serializers.follow_serializer import FollowSerializer, FollowingFollowersSerializer
+from accounts.user_utils.increment_decremet import increment, decrement
 
 User = get_user_model()
 

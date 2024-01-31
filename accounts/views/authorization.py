@@ -1,7 +1,7 @@
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
-from users.serializers.authorization_serializer import RegisterSerializer
+from accounts.serializers.authorization_serializer import RegisterSerializer
 
 User = get_user_model()
 

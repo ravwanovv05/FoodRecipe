@@ -1,11 +1,11 @@
 from django.urls import path
-from users.views.authorization import RegisterGenericAPIView
+from accounts.views.authorization import RegisterGenericAPIView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from users.views.follow import FollowGenericAPIView, UnFollowGenericAPIView, FollowingUserGenericAPIView, \
+from accounts.views.follow import FollowGenericAPIView, UnFollowGenericAPIView, FollowingUserGenericAPIView, \
     FollowersUserGenericAPIView
-from users.views.personal_data import PersonalDataGenericAPIView
-from users.views.user_info import UserInfoGenericAPIView
+from accounts.views.personal_data import PersonalDataGenericAPIView
+from accounts.views.user_info import UserInfoGenericAPIView
 
 urlpatterns = [
     path('register', RegisterGenericAPIView.as_view(), name='register'),

@@ -2,7 +2,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
-from users.serializers.personal_data_serializer import PersonalDataSerializer
+from accounts.serializers.personal_data_serializer import PersonalDataSerializer
 
 User = get_user_model()
 
