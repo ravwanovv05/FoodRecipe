@@ -11,7 +11,7 @@ User = get_user_model()
 
 
 class CreateDishGenericAPIView(GenericAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = IsAuthenticated
     serializer_class = CreateDishSerializer
 
     def post(self, request):
@@ -35,5 +35,3 @@ class MyRecipeGenericAPIView(GenericAPIView):
         return Response(serialized_data, status=200)
 
 
-class MyRecipeDetailGenericAPIView(GenericAPIView):
-    permission_classes = (IsAuthenticated,)

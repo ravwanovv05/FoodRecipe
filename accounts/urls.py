@@ -1,9 +1,7 @@
 from django.urls import path
 from accounts.views.authorization import RegisterGenericAPIView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
-from accounts.views.follow import FollowGenericAPIView, UnFollowGenericAPIView, FollowingUserGenericAPIView, \
-    FollowersUserGenericAPIView
+from accounts.views.follow import FollowGenericAPIView, UnFollowGenericAPIView, FollowingUserGenericAPIView, FollowersUserGenericAPIView
 from accounts.views.personal_data import PersonalDataGenericAPIView
 from accounts.views.user_info import UserInfoGenericAPIView
 
@@ -18,3 +16,4 @@ urlpatterns = [
     path('personal-data', PersonalDataGenericAPIView.as_view(), name='personal-data'),
     path('user-info', UserInfoGenericAPIView.as_view(), name='user-info'),
 ]
+

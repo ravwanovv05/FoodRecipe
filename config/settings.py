@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     'mptt',
     'storages',
+    'allauth',
+    'allauth.account',
 
 ]
 
@@ -45,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
