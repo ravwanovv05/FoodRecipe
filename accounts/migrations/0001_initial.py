@@ -2,7 +2,7 @@
 
 import django.db.models.deletion
 import django.utils.timezone
-import users.models.managers
+import accounts.models.managers
 from django.conf import settings
 from django.db import migrations, models
 
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'Users',
             },
             managers=[
-                ('objects', users.models.managers.CustomUserManager()),
+                ('objects', accounts.models.managers.CustomUserManager()),
             ],
         ),
         migrations.CreateModel(
