@@ -7,6 +7,7 @@ from api.models.saved_dish import SavedDish
 from api.serializers.saved_recipe import SavedRecipeSerializer, SavedRecipeDetailSerializer
 from django.contrib.auth import get_user_model
 from api.api_utils.recipe_rate import recipe_rate
+from django.urls import reverse
 
 User = get_user_model()
 
@@ -48,6 +49,11 @@ class SavedRecipeDetailGenericAPIView(GenericAPIView):
         serialized_data['author_name'] = User.objects.get(id=request.user.id).first_name
         serialized_data['author_location'] = User.objects.get(id=request.user.id).location
         serialized_data['rate'] = recipe_rate(pk)
+
+        # Retsept ma'lumotlaridan foydalanib unga bog'liq unikal URL generatsiya qilish
+        recipe_url = reverse('saved_recipe_detail', kwargs={'pk': pk})  # misolga asoslanadi
+        serialized_data['share_link'] = request.build_absolute_uri(recipe_url)
+
         return Response(serialized_data)
 
 
