@@ -1,10 +1,7 @@
 from django.urls import path
-from accounts.views.authorization import RegisterGenericAPIView, PasswordTokenCheckGenericAPIView, \
-    PasswordResetEmailGenericAPIView, SetNewPasswordGenericAPIView
+from accounts.views.authorization import RegisterGenericAPIView, PasswordResetEmailGenericAPIView, SetNewPasswordGenericAPIView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
-from accounts.views.follow import FollowGenericAPIView, UnFollowGenericAPIView, FollowingUserGenericAPIView, \
-    FollowersUserGenericAPIView
+from accounts.views.follow import FollowGenericAPIView, UnFollowGenericAPIView, FollowingUserGenericAPIView, FollowersUserGenericAPIView
 from accounts.views.personal_data import PersonalDataGenericAPIView
 from accounts.views.user_info import UserInfoGenericAPIView
 
@@ -12,9 +9,8 @@ urlpatterns = [
     path('register', RegisterGenericAPIView.as_view(), name='register'),
     path('token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
-    path('password-reset/<uidb64>/<token>/', PasswordTokenCheckGenericAPIView.as_view(), name='password-reset-confirm'),
     path('reset-email', PasswordResetEmailGenericAPIView.as_view(), name='reset-email'),
-    path('password-reset-complete', SetNewPasswordGenericAPIView.as_view(), name='password-reset-complete'),
+    path('password-reset-complete/<uidb64>/<token>/', SetNewPasswordGenericAPIView.as_view(), name='password-reset-complete'),
     path('follow', FollowGenericAPIView.as_view(), name='follow'),
     path('unfollow/<int:to_user>', UnFollowGenericAPIView.as_view(), name='unfollow'),
     path('following/<int:user_id>', FollowingUserGenericAPIView.as_view(), name='following'),

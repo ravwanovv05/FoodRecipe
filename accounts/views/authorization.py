@@ -1,9 +1,8 @@
-from django.contrib.sites.shortcuts import get_current_site
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
-from accounts.serializers.authorization_serializer import RegisterSerializer, PasswordResetEmailSerializer, \
-    SetNewPasswordSerializer
+from accounts.serializers.authorization_serializer import RegisterSerializer, PasswordResetEmailSerializer, SetNewPasswordSerializer
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import force_str, force_bytes, smart_str, smart_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -44,9 +43,8 @@ class PasswordResetEmailGenericAPIView(GenericAPIView):
             uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
             token = PasswordResetTokenGenerator().make_token(user)
             current_site = request.get_host()
-            print(current_site)
             relativeLink = reverse(
-                'password-reset-confirm',   
+                'password-reset-complete',
                 kwargs={
                     'uidb64': uidb64,
                     'token': token,
@@ -63,28 +61,25 @@ class PasswordResetEmailGenericAPIView(GenericAPIView):
         return Response({'success': 'We have sent you a link to reset your password'}, status=200)
 
 
-class PasswordTokenCheckGenericAPIView(GenericAPIView):
-
-    def get(self, request, uidb64, token):
-
-        try:
-            id = smart_str(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(id=id)
-
-            if not PasswordResetTokenGenerator().check_token(user, token):
-                return Response({'error': 'Token is not valid, please request a new one'}, status=401)
-
-            return Response({'succes': True, 'message': 'Credentials Valid', 'uidb64': uidb64, 'token': token}, status=200)
-
-        except DjangoUnicodeDecodeError as identifier:
-            if not PasswordResetTokenGenerator().check_token(user):
-                return Response({'error': 'Token is not valid, please request a new one'}, status=401)
-
-
 class SetNewPasswordGenericAPIView(GenericAPIView):
     serializer_class = SetNewPasswordSerializer
 
-    def patch(self, request):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        return Response({'success': True, 'message': 'Password reset success'}, status=200)
+    def patch(self, request, uidb64, token):
+        try:
+            password = request.data['password']
+            confirm_password = request.data['confirm_password']
+
+            id = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(id=id)
+
+            if not PasswordResetTokenGenerator().check_token(user, token):
+                raise AuthenticationFailed('The reset link is invalid', 401)
+
+            if password != confirm_password:
+                return Response({'error': 'Passwords are not same'}, status=401)
+
+            user.set_password(password)
+            user.save()
+        except Exception as e:
+            raise AuthenticationFailed('The reset link is invalid', 401)
+        return Response({'succes': True, 'message': 'Password reset success'}, status=200)
