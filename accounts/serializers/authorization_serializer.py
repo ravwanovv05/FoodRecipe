@@ -5,6 +5,7 @@ from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth import get_user_model
+from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 
 User = get_user_model()
 
@@ -41,3 +42,20 @@ class SetNewPasswordSerializer(Serializer):
     class Meta:
         fields = ('password', 'confirm_password')
 
+
+class LogoutSerializer(Serializer):
+    refresh = CharField()
+
+    default_error_messages = {
+        'bad_token': ('Token expired or invalid',)
+    }
+
+    def validate(self, attrs):
+        self.token = attrs['refresh']
+        return attrs
+
+    def save(self, **kwargs):
+        try:
+            RefreshToken(self.token).blacklist()
+        except TokenError:
+            self.fail('bad_token')

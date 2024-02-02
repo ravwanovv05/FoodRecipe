@@ -1,5 +1,6 @@
 from django.urls import path
-from accounts.views.authorization import RegisterGenericAPIView, PasswordResetEmailGenericAPIView, SetNewPasswordGenericAPIView
+from accounts.views.authorization import RegisterGenericAPIView, PasswordResetEmailGenericAPIView, \
+    SetNewPasswordGenericAPIView, LogoutGenericAPIView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from accounts.views.follow import FollowGenericAPIView, UnFollowGenericAPIView, FollowingUserGenericAPIView, FollowersUserGenericAPIView
 from accounts.views.personal_data import PersonalDataGenericAPIView
@@ -8,6 +9,7 @@ from accounts.views.user_info import UserInfoGenericAPIView
 urlpatterns = [
     path('register', RegisterGenericAPIView.as_view(), name='register'),
     path('token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('logout', LogoutGenericAPIView.as_view(), name='logout'),
     path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('reset-email', PasswordResetEmailGenericAPIView.as_view(), name='reset-email'),
     path('password-reset-complete/<uidb64>/<token>/', SetNewPasswordGenericAPIView.as_view(), name='password-reset-complete'),

@@ -1,8 +1,9 @@
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
-from accounts.serializers.authorization_serializer import RegisterSerializer, PasswordResetEmailSerializer, SetNewPasswordSerializer
+from accounts.serializers.authorization_serializer import RegisterSerializer, PasswordResetEmailSerializer, SetNewPasswordSerializer, LogoutSerializer
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import force_str, force_bytes, smart_str, smart_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -83,3 +84,14 @@ class SetNewPasswordGenericAPIView(GenericAPIView):
         except Exception as e:
             raise AuthenticationFailed('The reset link is invalid', 401)
         return Response({'succes': True, 'message': 'Password reset success'}, status=200)
+
+
+class LogoutGenericAPIView(GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = LogoutSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status=204)
