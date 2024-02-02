@@ -10,7 +10,7 @@ class UserInfoGenericAPIView(GenericAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = UserSerializer
 
-    def get(self, request):
-        user = request.user
+    def get(self, request, pk):
+        user = User.objects.get(id=pk)
         user_serializer = self.get_serializer(user)
         return Response(user_serializer.data)

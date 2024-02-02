@@ -16,5 +16,5 @@ urlpatterns = [
     path('following/<int:user_id>', FollowingUserGenericAPIView.as_view(), name='following'),
     path('followers/<int:user_id>', FollowersUserGenericAPIView.as_view(), name='followers'),
     path('personal-data', PersonalDataGenericAPIView.as_view(), name='personal-data'),
-    path('user-info', UserInfoGenericAPIView.as_view(), name='user-info'),
+    path('user-info/<int:pk>', UserInfoGenericAPIView.as_view(), name='user-info'),
 ]

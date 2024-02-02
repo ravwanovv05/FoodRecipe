@@ -37,3 +37,4 @@ class MyRecipeGenericAPIView(GenericAPIView):
 
 class MyRecipeDetailGenericAPIView(GenericAPIView):
     permission_classes = (IsAuthenticated,)
+    serializer_class = ''

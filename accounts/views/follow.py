@@ -14,6 +14,8 @@ class FollowGenericAPIView(GenericAPIView):
     serializer_class = FollowSerializer
 
     def post(self, request):
+        if request.user.id == request.data['to_user']:
+            return Response(status=400)
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
