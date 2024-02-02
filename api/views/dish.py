@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from api.api_utils import recipe_rate
 from api.api_utils.recipe_rate import recipe_rate
 from api.models.dish import Dish
-from api.serializers.dish_crud import CreateDishSerializer, MyRecipeSerializer
+from api.serializers.dish_crud import CreateDishSerializer, MyRecipeSerializer, MyRecipeDetailSerializer
 
 User = get_user_model()
 
@@ -37,4 +37,13 @@ class MyRecipeGenericAPIView(GenericAPIView):
 
 class MyRecipeDetailGenericAPIView(GenericAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = ''
+    serializer_class = MyRecipeDetailSerializer
+
+    def get(self, request, dish_id):
+        my_recipe = Dish.objects.filter(user_id=request.user.id, id=dish_id)
+        if my_recipe.exists():
+            serializer = self.get_serializer(my_recipe.first())
+            serialized_data = serializer.data
+            serialized_data['rate'] = recipe_rate(dish_id=dish_id)
+            return Response(serialized_data, status=200)
+        return Response(status=404)

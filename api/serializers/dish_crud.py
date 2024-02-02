@@ -23,4 +23,5 @@ class MyRecipeSerializer(ModelSerializer):
 class MyRecipeDetailSerializer(ModelSerializer):
     class Meta:
         model = Dish
+        fields = '__all__'
         
