@@ -37,7 +37,6 @@ class PasswordResetEmailGenericAPIView(GenericAPIView):
     serializer_class = PasswordResetEmailSerializer
 
     def post(self, request):
-        serializer = self.serializer_class(data=request.data)
         email = request.data['email']
         if User.objects.filter(email=email).exists():
             user = User.objects.get(email=email)
@@ -58,8 +57,9 @@ class PasswordResetEmailGenericAPIView(GenericAPIView):
                 'email_body': email_body,
                 'to_email': user.email,
             }
-            send_mail(data)
-        return Response({'success': 'We have sent you a link to reset your password'}, status=200)
+            send_mail.delay(data)
+            return Response({'success': 'We have sent you a link to reset your password'}, status=200)
+        return Response(status=404)
 
 
 class SetNewPasswordGenericAPIView(GenericAPIView):
