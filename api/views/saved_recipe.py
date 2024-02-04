@@ -63,10 +63,3 @@ class UnSaveRecipeAPIView(APIView):
             return Response({'message': str(e)}, status=400)
 
 
-class CountSavedRecipeAPIView(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request, dish_id):
-        saved_recipe = SavedDish.objects.filter(dish_id=dish_id)
-        return Response({'dish_id': dish_id, 'saved_count': saved_recipe.count()})
-
