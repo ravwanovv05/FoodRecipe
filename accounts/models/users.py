@@ -16,6 +16,10 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['first_name']
     objects = CustomUserManager()
 
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name']
+    objects = CustomUserManager()
+
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'

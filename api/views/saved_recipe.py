@@ -32,9 +32,9 @@ class SavedRecipeDetailGenericAPIView(GenericAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = SavedRecipeDetailSerializer
 
-    def get(self, request, pk):
+    def get(self, request, dish_id):
         try:
-            saved_recipe = SavedDish.objects.get(user_id=request.user.id, dish_id=pk)
+            saved_recipe = SavedDish.objects.get(user_id=request.user.id, dish_id=dish_id)
         except SavedDish.DoesNotExist:
             return Response(status=400)
 
@@ -47,18 +47,19 @@ class SavedRecipeDetailGenericAPIView(GenericAPIView):
             serialized_data['author_avatar'] = None
         serialized_data['author_name'] = User.objects.get(id=request.user.id).first_name
         serialized_data['author_location'] = User.objects.get(id=request.user.id).location
-        serialized_data['rate'] = recipe_rate(pk)
+        serialized_data['rate'] = recipe_rate(dish_id)
         return Response(serialized_data)
 
 
 class UnSaveRecipeAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
-    def delete(self, request, pk):
+    def delete(self, request, dish_id):
         try:
-            saved_recipe = SavedDish.objects.get(user_id=request.user, id=pk)
+            saved_recipe = SavedDish.objects.get(user_id=request.user, dish_id=dish_id)
             saved_recipe.delete()
             return Response(status=204)
         except Exception as e:
             return Response({'message': str(e)}, status=400)
+
 

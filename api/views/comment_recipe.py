@@ -1,7 +1,9 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import GenericAPIView
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from api.models.comment import Comment
+from api.models.saved_dish import SavedDish
 from api.serializers.comment_serializer import CommentSerializer
 from django.contrib.auth import get_user_model
 
@@ -35,3 +37,13 @@ class CommentsRecipeGenericAPIView(GenericAPIView):
                 data['user_avatar'] = None
         return Response(serializer.data)
 
+
+class CountSavedRecipeAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, dish_id):
+        saved_recipe = SavedDish.objects.filter(dish_id=dish_id)
+        comment_recipe = Comment.objects.filter(dish_id=dish_id)
+        count_saved_recipe = saved_recipe.count()
+        count_comment = comment_recipe.count()
+        return Response({'dish_id': dish_id, 'comment_count': count_comment, 'saved_recipe_count': count_saved_recipe})
