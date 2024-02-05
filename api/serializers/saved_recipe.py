@@ -13,3 +13,10 @@ class SavedRecipeDetailSerializer(ModelSerializer):
     class Meta:
         model = Dish
         fields = ('id', 'name', 'cocking_time', 'image', 'ingredient', 'video', 'procedure')
+
+
+class SaveDishPostSerializer(ModelSerializer):
+    class Meta:
+        model = SavedDish
+        fields = ['id', 'dish_id']
+        read_only_fields = ['user_id']

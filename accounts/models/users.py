@@ -9,8 +9,6 @@ class User(AbstractUser):
     avatar = models.ImageField('Avatar', upload_to='pic', null=True, blank=True)
     bio = models.CharField('Biography', max_length=255, null=True, blank=True)
     location = models.CharField('Location', max_length=255, null=True, blank=True)
-    following = models.PositiveBigIntegerField('Following', default=0)
-    followers = models.PositiveBigIntegerField('Followers', default=0)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name']
