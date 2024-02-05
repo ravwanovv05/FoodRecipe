@@ -10,6 +10,9 @@ class UserInfoGenericAPIView(GenericAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = UserSerializer
 
+    def get_queryset(self):
+        return User.objects.all()
+
     def get(self, request, pk):
         user = User.objects.get(id=pk)
         user_serializer = self.get_serializer(user)
