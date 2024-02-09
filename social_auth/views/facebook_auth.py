@@ -27,7 +27,7 @@ class RedirectToFacebookApiView(APIView):
 
 class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
-    callback_url = "https://219d-178-218-201-17.ngrok-free.app/accounts/facebook/callback_facebook"
+    callback_url = "https://5279-178-218-201-17.ngrok-free.app/accounts/facebook/callback_facebook"
     client_class = OAuth2Client
 
 

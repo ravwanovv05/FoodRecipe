@@ -16,7 +16,8 @@ User = get_user_model()
 class RedirectToGoogleAPIView(APIView):
 
     def get(self, request):
-        google_redirect_uri = os.getenv('GOOGLE_REDIRECT_URI')
+        google_redirect_uri = os.getenv('GOOGLE_REDIRECT_URL')
+        print('Google Redirect url------', google_redirect_uri)
         try:
             google_client_id = SocialApp.objects.get(provider='google').client_id
         except SocialApp.DoesNotExist:
@@ -27,7 +28,7 @@ class RedirectToGoogleAPIView(APIView):
 
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
-    callback_url = 'https://219d-178-218-201-17.ngrok-free.app/accounts/google/callback'
+    callback_url = 'https://5279-178-218-201-17.ngrok-free.app/accounts/google/callback'
     client_class = OAuth2Client
 
 
@@ -35,5 +36,5 @@ class GoogleLogin(SocialLoginView):
 def callback_google(request):
     """Callback"""
     code = request.GET.get("code")
-    res = requests.post("https://219d-178-218-201-17.ngrok-free.app/accounts/google", data={"code": code}, timeout=30)
+    res = requests.post("https://5279-178-218-201-17.ngrok-free.app/accounts/google", data={"code": code}, timeout=30)
     return Response(res.json())
