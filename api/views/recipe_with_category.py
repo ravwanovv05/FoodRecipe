@@ -10,6 +10,9 @@ class RecipeDataList(ListAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = RecipeSerializer
 
+    def get_queryset(self):
+        return Dish.objects.all()
+
     def get(self, request, pk):
         recipe_data = Dish.objects.filter(category_id=pk)
         serializer = self.get_serializer(recipe_data, many=True)
