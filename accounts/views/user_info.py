@@ -13,7 +13,7 @@ class UserInfoGenericAPIView(GenericAPIView):
     def get_queryset(self):
         return User.objects.all()
 
-    def get(self, request, pk):
-        user = User.objects.get(id=pk)
+    def get(self, request):
+        user = User.objects.get(id=request.user.id)
         user_serializer = self.get_serializer(user)
         return Response(user_serializer.data)

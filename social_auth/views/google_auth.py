@@ -20,6 +20,7 @@ class RedirectToGoogleAPIView(APIView):
         print('Google Redirect url------', google_redirect_uri)
         try:
             google_client_id = SocialApp.objects.get(provider='google').client_id
+            print('Google CI ----- ', google_client_id)
         except SocialApp.DoesNotExist:
             return Response({'success': False, 'message': 'SocialApp does not exist'}, status=404)
         url = f'https://accounts.google.com/o/oauth2/v2/auth?redirect_uri={google_redirect_uri}&prompt=consent&response_type=code&client_id={google_client_id}&scope=openid email profile&access_type=offline'
@@ -28,7 +29,7 @@ class RedirectToGoogleAPIView(APIView):
 
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
-    callback_url = 'https://5279-178-218-201-17.ngrok-free.app/accounts/google/callback'
+    callback_url = 'https://646b-178-218-201-17.ngrok-free.app/social-auth/google/callback'
     client_class = OAuth2Client
 
 
@@ -36,5 +37,5 @@ class GoogleLogin(SocialLoginView):
 def callback_google(request):
     """Callback"""
     code = request.GET.get("code")
-    res = requests.post("https://5279-178-218-201-17.ngrok-free.app/accounts/google", data={"code": code}, timeout=30)
+    res = requests.post('https://646b-178-218-201-17.ngrok-free.app/social-auth/google', data={"code": code}, timeout=30)
     return Response(res.json())
