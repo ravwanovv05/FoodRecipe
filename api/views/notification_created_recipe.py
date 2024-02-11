@@ -10,7 +10,7 @@ class NotificationCreateGet(ListAPIView):
     serializer_class = NotificationCreateRecipeSerializer
 
     def get(self, request):
-        notification = NotificationCreateRecipe.objects.filter(from_user=request.user.id)
+        notification = NotificationCreateRecipe.objects.filter(to_user=request.user.id)
         serializer = self.get_serializer(notification, many=True)
         data = serializer.data
         return Response(data)
