@@ -7,16 +7,10 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG', True)
+SECRET_KEY = 'django-insecure-1nql4%a61vrzhuu^*c%e+ixbfn4tlxl_2=6$m02+(6ebgf+8qg'
+DEBUG = True
 
 ALLOWED_HOSTS = '*'
-CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split()
-
-# SECURE_SSL_REDIRECT = \
-#     os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
-# if SECURE_SSL_REDIRECT:
-#     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 INSTALLED_APPS = [
